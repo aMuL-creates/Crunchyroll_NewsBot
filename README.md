@@ -24,7 +24,7 @@ pip install -r requirements.txt
  >Ex: <code>@CRUNCHYROLL_NEWSBOT</code> ▶ <code>CRUNCHYROLL_NEWSBOT</code>
 
 # Issues ?
-For help and support, [Contact Me](htps://t.me/amitispro)
+For help and support, [Contact Me](https://t.me/amitispro)
 <br>
 <b>OR</b>
 <br>
