@@ -1,7 +1,10 @@
 # 🥐 Crunchyroll News Telegram Bot
 The bot sends the latest anime article from the official Crunchyroll website into your telegram groups.
 
-![News_Sample_Image](/images/News_sample.PNG)
+| Desktop | Mobile |
+| --------------- | -------------- |
+| ![News_Sample_Image_Desktop](/images/desktopnewssample.jpg) | ![News_Sample_Image_Mobile](/images/mobilnewssample.jpg) |
+
 ## 🤖 Clone 
 ```
 git clone https://github.com/aMuL-creates/Crunchyroll_NewsBot
