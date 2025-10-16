@@ -184,12 +184,15 @@ async def chat_member_update(update: Update, context: ContextTypes.DEFAULT_TYPE)
                 writer = csv.writer(fil)
                 writer.writerow(["chat","title"])
                 writer.writerows(chats)
-
-            await context.bot.send_message(
-                chat_id= user_id,
-                text = f"❌ <b>The bot was removed from the group {member.chat.title} [{member.chat.id}] and unregistered from receiving news.</b>\n\n<blockquote><i>If you want to re-register the group, add the bot again and promote as admin. Hoping to see you soon 🌹!</i></blockquote>",
-                parse_mode= "HTML"
-            )
+            try:
+                await context.bot.send_message(
+                    chat_id= user_id,
+                    text = f"❌ <b>The bot was removed from the group {member.chat.title} [{member.chat.id}] and unregistered from receiving news.</b>\n\n<blockquote><i>If you want to re-register the group, add the bot again and promote as admin. Hoping to see you soon 🌹!</i></blockquote>",
+                    parse_mode= "HTML"
+                )
+                
+            except Exception as error:
+                print(f"Can't send the message to the user. Error: {error}")
 
         else:
             try:
