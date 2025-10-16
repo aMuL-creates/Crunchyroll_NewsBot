@@ -9,10 +9,11 @@ git clone https://github.com/aMuL-creates/Crunchyroll_NewsBot
 ## 📚 Libraries
 ><b>python-telegram-bot[job-queue]</b><br>
 ><b>requests</b>
-<br>
+
 ```
 pip install -r requirements.txt
 ```
+
 ## ⚠ Update Credentials
 ![Credential_Part_code_image](/images/Credential_part_code.png)
  * <b>TOKEN</b> - Replace The bot token from <code>@BotFather</code> in Telgram. and put the token inside **""**.
