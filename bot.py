@@ -119,7 +119,7 @@ async def send_news(context, text, imageurl, articleurl):
                 )
 
                 msglocation = {
-                    "chat" : chatid,
+                    "chat" : int(chatid[0]),
                     "id" : sentnews.id
                 }
                 pinnedmsges.append(msglocation)
@@ -190,7 +190,7 @@ async def chat_member_update(update: Update, context: ContextTypes.DEFAULT_TYPE)
                     text = f"❌ <b>The bot was removed from the group {member.chat.title} [{member.chat.id}] and unregistered from receiving news.</b>\n\n<blockquote><i>If you want to re-register the group, add the bot again and promote as admin. Hoping to see you soon 🌹!</i></blockquote>",
                     parse_mode= "HTML"
                 )
-                
+
             except Exception as error:
                 print(f"Can't send the message to the user. Error: {error}")
 
