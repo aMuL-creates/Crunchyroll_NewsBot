@@ -154,8 +154,8 @@ async def create_news(context: ContextTypes.DEFAULT_TYPE):
         )
 
 async def chat_member_update(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    global owner
     member = update.my_chat_member
+    user_id = update.effective_user.id
 
     if member:
         if member.new_chat_member.user.id == context.bot.id and member.new_chat_member.status == 'administrator':
@@ -170,6 +170,27 @@ async def chat_member_update(update: Update, context: ContextTypes.DEFAULT_TYPE)
                 parse_mode= "HTML"
             )
 
+        elif member.new_chat_member.user.id == context.bot.id and member.new_chat_member.status in ['left','kicked','banned']:
+            chats = []
+            with open("chats.csv","r",newline="") as fil:
+                reader = csv.reader(fil)
+                next(reader)
+
+                for chat in reader:
+                    if str(member.chat.id) != chat[0]:
+                        chats.append(chat)
+
+            with open("chats.csv","w",newline="") as fil:
+                writer = csv.writer(fil)
+                writer.writerow(["chat","title"])
+                writer.writerows(chats)
+
+            await context.bot.send_message(
+                chat_id= user_id,
+                text = f"❌ <b>The bot was removed from the group {member.chat.title} [{member.chat.id}] and unregistered from receiving news.</b>\n\n<blockquote><i>If you want to re-register the group, add the bot again and promote as admin. Hoping to see you soon 🌹!</i></blockquote>",
+                parse_mode= "HTML"
+            )
+
         else:
             try:
                 await context.bot.send_message(
@@ -177,17 +198,18 @@ async def chat_member_update(update: Update, context: ContextTypes.DEFAULT_TYPE)
                     text = "🥰 <b>Thanks for adding the bot to the group. Please promote the bot as an administrator to start receiving the news.</b>",
                     parse_mode = "HTML"
                 )
-            except:
-                print("Can't send the message to the group, Trying to send to the owner")
+
+            except Exception as error:
+                print(f"Can't send the message to the group. Error: {error}")
 
                 try:
                     await context.bot.send_message(
-                        chat_id = owner,
-                        text = "🥰 <b>Thanks for adding the bot to the group. Please promote the bot as an administrator to start receiving the news.</b>",
-                        parse_mode= "HTML"
+                        chat_id = user_id,
+                        text = f"🥰 <b>Thanks for adding the bot to the group {member.chat.title}. Please promote the bot as an administrator to start receiving the news.</b>",
+                        parse_mode = "HTML"
                     )
                 except Exception as error:
-                    print(f"Can't send the message to the owner. Error : {error}")
+                    print(f"Can't send the message to the user. Error: {error}")
 
 if __name__ == "__main__":
     application = Application.builder().token(TOKEN).build()
